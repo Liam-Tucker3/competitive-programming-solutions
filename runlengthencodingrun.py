@@ -1,29 +1,24 @@
-#b
-n=list(input().split(" "))
-if n[0]=='E':
-    s=n[1]
-    c=0
-    count=1
-    i=0
-    br=0
-    while i<len(s):
-        while i+1 < len(s) and s[i]==s[i+1]:
-            count=count+1
-            i=i+1
-        print(s[i],count,sep="",end="")
-        count=1
-        i=i+1
+""" Run-Length Encoding Run """
+vals = input().split()
+s = vals[1]
+# print(s)
+
+outputList = []
+if vals[0] == "E":
+    i = 0
+    while i < len(s):
+        thisCh = s[i]
+        thisCount = 1
+        while i+1 < len(s) and s[i+1] == thisCh:
+            i += 1
+            thisCount += 1
+        outputList.append(thisCh)
+        outputList.append(str(thisCount))
+        i += 1
         
-                
-
-
-
-
-
 else:
-    i=0
-    s=n[1]   
-    while i <len(s):
-        print(s[i]*int(s[i+1]),end="")
-        i=i+2
-     
+    for i in range(0, len(s), 2):
+        for j in range(int(s[i+1])):
+            outputList.append(s[i])
+    
+print(''.join(outputList))
