@@ -2,6 +2,7 @@
 from utils import readFile
 from itertools import product
 
+
 def part1():
     def eval(nums, ops):
         # print(len(nums), len(ops))
