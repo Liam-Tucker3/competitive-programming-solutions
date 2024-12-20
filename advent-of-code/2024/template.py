@@ -1,5 +1,5 @@
 # Importing useful function
-from utils import readFile
+from utils import readFile, toGrid, printGrid
 
 def part1():
     data = readFile('inputs/dayX.txt')

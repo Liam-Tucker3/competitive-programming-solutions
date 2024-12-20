@@ -23,3 +23,9 @@ def printGrid(grid):
         for j in range(len(grid[i])):
             print(grid[i][j], end="")
         print()
+
+# Parses string of format "100_200"
+def parseStr(s):
+    vals = s.split("_")
+    x, y = int(vals[0]), int(vals[1])
+    return x, y
