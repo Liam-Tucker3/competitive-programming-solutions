@@ -29,3 +29,9 @@ def parseStr(s):
     vals = s.split("_")
     x, y = int(vals[0]), int(vals[1])
     return x, y
+
+# Parses string of format "100_200_300" with variable number of values
+def parseStrVar(s, n):
+    vals = s.split("_")
+    for i in range(n): vals[i] = int(vals[i])
+    return vals
