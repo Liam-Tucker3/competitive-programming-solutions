@@ -82,18 +82,32 @@ def part1():
 def part2():
 
     def getCost(points):
-        sides = 0
+        corners = 0
         for p in points:
             # Calculating neighbors in shape
-            neighbors = 0
-            if (p[0]-1, p[1]) in points: neighbors += 1
-            if (p[0]+1, p[1]) in points: neighbors += 1
-            if (p[0], p[1]-1) in points: neighbors += 1
-            if (p[0], p[1]+1) in points: neighbors += 1
+            u = (p[0]-1, p[1]) in points
+            d = (p[0]+1, p[1]) in points
+            l = (p[0], p[1]-1) in points
+            r = (p[0], p[1]+1) in points
+            
+            # 16 cases
+            if u == 0 and d == 0 and l == 0 and r == 0: corners += 4 # Case 1: no neighbors
+            if u+d+l+r == 1: corners += 2 # Case 2-5: one neighbor
+            if u == 1 and d == 1 and l == 0 and r == 0: corners += 0 # Case 6: two neighbors across from each other
+            if u == 0 and d == 0 and l == 1 and r == 1: corners += 0 # Case 7: two neighbors across from each other
 
-            # Adding to sides as needed
-            if neighbors == 0 or neighbors == 4: continue
-            if neighbors == 3 or neigh
+            if u == 1 and d == 0 and l == 1 and r == 0: corners += 1 + int((p[0]-1, p[1]-1) not in points) # Case 8: L
+            if u == 1 and d == 0 and l == 0 and r == 1: corners += 1 + int((p[0]-1, p[1]+1) not in points) # Case 9: L
+            if u == 0 and d == 1 and l == 1 and r == 0: corners += 1 + int((p[0]+1, p[1]-1) not in points) # Case 10: L
+            if u == 0 and d == 1 and l == 0 and r == 1: corners += 1 + int((p[0]+1, p[1]+1) not in points) # Case 11: L
+
+            if u == 1 and d == 0 and l == 1 and r == 1: corners += int((p[0]-1, p[1]+1) not in points) + int((p[0]-1, p[1]-1) not in points) # Case 12: T
+            if u == 0 and d == 1 and l == 1 and r == 1: corners += int((p[0]+1, p[1]-1) not in points) + int((p[0]+1, p[1]+1) not in points) # Case 13: T
+            if u == 1 and d == 1 and l == 0 and r == 1: corners += int((p[0]-1, p[1]+1) not in points) + int((p[0]+1, p[1]+1) not in points) # Case 14: T
+            if u == 1 and d == 1 and l == 1 and r == 0: corners += int((p[0]-1, p[1]-1) not in points) + int((p[0]+1, p[1]-1) not in points) # Case 15: T
+            if u+d+l+r == 4: corners += int((p[0]-1, p[1]-1) not in points) + int((p[0]-1, p[1]+1) not in points) + int((p[0]+1, p[1]+1) not in points) + int((p[0]+1, p[1]-1) not in points)
+        # End of for loop
+        return corners * len(points) # Corners times area
     
     def setToList(s):
         l = []
